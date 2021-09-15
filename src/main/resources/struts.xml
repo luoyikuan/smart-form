@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.i18n.encoding" value="UTF-8"/> 
+	<constant name="struts.devMode" value="false" />
+
+	<!-- 前台开始 -->
+	<package name="default" extends="struts-default,json-default">
+
+		<action name="test" class="testAction" method="test">
+			<result name="success" type="json">
+				<param name="root">ajaxData</param>
+			</result>
+		</action>
+		
+		<!-- 用户登录 -->
+		<action name="login" class="userAction" method="login">
+			<result name="success" type="json">
+				<param name="root">ajaxData</param>
+			</result>
+		</action>
+		
+		<!-- 用户退出 -->
+		<action name="logout" class="userAction" method="logout">
+			<result name="success" type="redirect">/index.html</result>
+		</action>
+		
+		<!-- 用户注册 -->
+		<action name="register" class="userAction" method="register">
+			<result name="success" type="json">
+				<param name="root">ajaxData</param>
+			</result>
+		</action>
+		
+		<!-- 修改密码 -->
+		<action name="updateUserPwd.api" class="userAction" method="updateUserPwd">
+			<result name="success" type="freemarker">/modifyPwd.html</result>
+		</action>
+		<action name="doUpdateUserPwd.api" class="userAction" method="doUpdateUserPwd">
+			<result name="success" type="freemarker">/modifyPwd.html</result>
+			<result name="error" type="freemarker">/modifyPwd.html</result>
+		</action>
+		
+		<!-- 添加表单 -->
+		<action name="addForm.api" class="formAction" method="addForm">
+			<result name="success" type="json">
+				<param name="root">ajaxData</param>
+			</result>
+		</action>
+		
+		<!-- 查看form -->
+		<action name="formList.api" class="formAction" method="formList">
+			<result name="success" type="freemarker">/formList.html</result>
+		</action>
+		
+		<!-- 查看formdata -->
+		<action name="formdata.api" class="formAction" method="formdata">
+			<result name="success" type="freemarker">/formData.html</result>
+		</action>
+		
+		<!-- 删除表单 -->
+		<action name="delForm.api" class="formAction" method="delForm">
+			<result name="success" type="json">
+				<param name="root">ajaxData</param>
+			</result>
+		</action>
+		
+		<!-- 提交表单开始 -->
+		<action name="submit" class="formAction" method="submit">
+			<result name="success" type="freemarker">/submit.html</result>
+		</action>
+		<action name="doSubmit" class="formAction" method="doSubmit">
+			<result name="success" type="redirect">/submitsuccess.html</result>
+			<result name="error" type="redirect">/submiterror.html</result>
+		</action>
+		<!-- 提交表单结束 -->
+		
+		<!-- 删除row数据 -->
+		<action name="delOneRowData.api" class="inputdataAction" method="delOneRowData">
+			<result name="success" type="json">
+				<param name="root">ajaxData</param>
+			</result>
+		</action>
+		
+		<!-- 更新cell数据 -->
+		<action name="updateOneCellData.api" class="inputdataAction" method="updateOneCellData">
+			<result name="success" type="json">
+				<param name="root">ajaxData</param>
+			</result>
+		</action>
+		
+		<!-- 下载Excel 没有做权限检查 -->
+		<action name="downloadExcel.api" class="downloadDataAction" method="downloadExcel"></action>
+	</package>
+	<!-- 前台结束 -->
+
+</struts>

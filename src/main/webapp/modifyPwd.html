@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>smartform</title>
+
+<!-- Set render engine for 360 browser -->
+<meta name="renderer" content="webkit">
+
+<link rel="stylesheet" href="css/amazeui.min.css">
+<link rel="stylesheet" href="css/manage.css">
+
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="js/amazeui.min.js"></script>
+
+</head>
+
+<body>
+
+	<#include "/header.html" parse=false />
+
+	<div class="am-cf admin-main">
+		<!-- sidebar start -->
+		<#include "/left.html" parse=false />
+		<!-- sidebar end -->
+
+		<!-- content start -->
+		<div class="admin-content">
+			<div class="admin-content-body">
+				<div class="am-cf am-padding">
+					<div class="am-fl am-cf">
+						<strong class="am-text-primary am-text-lg">首页</strong> / <small>个人资料</small>
+					</div>
+				</div>
+				<hr>
+
+
+				<div class="">
+					<form class="am-form" action="doUpdateUserPwd.api.action" method="post">
+						<div class="am-g am-margin-top-sm">
+							<div class="am-u-sm-4 am-u-md-2 am-text-right">邮箱</div>
+							<div class="am-u-sm-8 am-u-md-4 am-u-end">
+								<input type="email" class="am-input-sm" value="${user.email}"
+									name="user.email" readonly="readonly">
+							</div>
+						</div>
+
+						<div class="am-g am-margin-top-sm">
+							<div class="am-u-sm-4 am-u-md-2 am-text-right">旧密码</div>
+							<div class="am-u-sm-8 am-u-md-4 am-u-end">
+								<input type="password" class="am-input-sm" name="user.pwd">
+							</div>
+						</div>
+
+						<div class="am-g am-margin-top-sm">
+							<div class="am-u-sm-4 am-u-md-2 am-text-right">新密码</div>
+							<div class="am-u-sm-8 am-u-md-4 am-u-end">
+								<input type="password" class="am-input-sm" name="newPwd">
+							</div>
+						</div>
+						<div class="am-g am-margin-top-sm">
+							<div class="am-u-sm-4 am-u-md-2 am-text-right">确认密码</div>
+							<div class="am-u-sm-8 am-u-md-4 am-u-end">
+								<input type="password" class="am-input-sm" name="reNewPwd">
+							</div>
+						</div>
+						<div class="am-g am-margin-top-sm">
+							<div class="am-u-sm-4 am-u-md-2 am-text-right">
+								&nbsp;
+							</div>
+							<div class="am-u-sm-8 am-u-md-4 am-u-end">
+								<button type="submit" class="am-btn am-btn-warning">修 改</button>
+							</div>
+						</div>
+						
+						<div class="am-g am-margin-top-sm">
+							<div class="am-u-sm-4 am-u-md-2 am-text-right">
+								&nbsp;
+							</div>
+							<div class="am-u-sm-8 am-u-md-4 am-u-end">
+								<#if ajaxData ??>
+									${ajaxData.msg}
+								</#if>
+							</div>
+						</div>
+					</form>
+				</div>
+
+			</div>
+			<#include "/footer.html" parse=false />
+		</div>
+		<!-- content end -->
+
+	</div>
+
+
+	<a href="#"
+		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
+		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+</body>
+
+</html>

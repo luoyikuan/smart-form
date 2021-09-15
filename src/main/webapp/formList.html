@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>smartform</title>
+
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+
+    <link rel="stylesheet" href="css/amazeui.min.css">
+    <link rel="stylesheet" href="css/manage.css">
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/amazeui.min.js"></script>
+
+</head>
+
+<body>
+
+	<#include "/header.html" parse=false />
+
+    <div class="am-cf admin-main">
+        <!-- sidebar start -->
+        <#include "/left.html" parse=false />
+        <!-- sidebar end -->
+
+        <!-- content start -->
+        <div class="admin-content">
+            <div class="admin-content-body">
+                <div class="am-cf am-padding">
+                    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">首页</strong> /
+                        <small>所以表单</small></div>
+                </div>
+                
+                <ul class="am-avg-sm-2 am-avg-md-4 am-avg-lg-3 am-margin gallery-list">
+                    <#list Request.formList as form>
+                    <li smartform-data-form-id="${form.formId?c}">
+                        <div class="am-gallery-item">
+	                        <div class="am-panel am-panel-default">
+	                            <div class="am-panel-bd">表单名称：${form.formName} <br>历史数据： ${form.size} 条</div>
+	                            <footer class="am-panel-footer">
+									<a href="submit?formId=${form.formId?c}" target="_blank" class="am-btn am-btn-primary am-btn-xs">查看表单</a>
+	                                <a href="formdata.api.action?formId=${form.formId?c}&pageSize=14&pageIndex=0&like=" class="am-btn am-btn-success am-btn-xs">查看数据</a>
+	                                <button class="am-btn am-btn-danger am-btn-xs" onclick="M.delForm(${form.formId?c});">删除表单</button>
+	                            </footer>
+	                        </div>
+                        </div>
+                    </li>
+                    </#list>
+                </ul>
+                
+            </div>
+		<#include "/footer.html" parse=false />
+        </div>
+    	<!-- content end -->
+
+    </div>
+
+
+    <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
+        data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+        
+    <div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">Smartform</div>
+            <div class="am-modal-bd">
+                你，确定要删除这个表单吗？
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="js/formList.js"></script>
+</body>
+
+</html>

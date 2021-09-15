@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>smartform</title>
+
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="css/amazeui.min.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/amazeui.min.js"></script>
+
+</head>
+
+<body>
+
+    <header style="height: 50px;"></header>
+
+    <div class="am-g">
+        <div class="am-u-lg-4 am-u-md-8 am-u-sm-centered">
+            <h2>${Request.formModel.form.formName!"Smartform"}</h2>
+            <hr>
+            <br>
+
+            <form method="post" action="doSubmit?formId=${Request.formModel.form.formId}" class="am-form">
+				<#list Request.formModel.inputs as input>
+                <div class="am-form-group">
+                    <label>${input.name!}</label>
+                    <#if input.type == "text">
+                    <input type="text" required class="am-form-field am-radius" value="${input.value!}" name="field${input.colIndex}"/>
+                    <#elseif input.type == "textarea">
+                    <textarea required class="am-form-field am-radius" name="field${input.colIndex}">${input.value!}</textarea>
+                    <#elseif input.type == "select">
+                    <select name="field${input.colIndex}">
+                    	<#list input.value?split("|") as optionValue>
+                        <option value="${optionValue!}">${optionValue!}</option>
+                        </#list>
+                    </select>
+                    <span class="am-form-caret"></span>
+                    <#elseif input.type == "checkbox">
+                    <br>
+                    <#list input.value?split("|") as optionValue>
+                    <label class="am-checkbox-inline">
+                        <input type="checkbox" value="${optionValue!}" name="field${input.colIndex}"> ${optionValue!}
+                    </label>
+                    </#list>
+                    <#elseif input.type == "radio">
+                    <br>
+					<#list input.value?split("|") as optionValue>
+                    <label class="am-checkbox-inline">
+                        <input type="radio" value="${optionValue!}" name="field${input.colIndex}">${optionValue!}
+                    </label>
+                    </#list>
+                    </#if>
+                </div>
+                </#list>
+
+                <div class="am-cf">
+                    <input type="submit" name="" value="提 交" class="am-btn am-btn-primary am-btn-sm am-fl">
+                </div>
+            </form>
+
+            <br>
+            <hr>
+            <div class="am-cf">
+                <button type="button" class="am-btn am-btn-sm am-btn-default am-fr"
+                    data-am-modal="{target: '#my-alert'}"><i class="am-icon-qrcode am-icon-md"></i></button>
+            </div>
+
+            <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+                <div class="am-modal-dialog">
+                    <div class="am-modal-hd">扫一扫分享给好友</div>
+                    <div class="am-modal-bd">
+                        <div id="doc-qrcode" class="am-text-center"></div>
+                    </div>
+                    <div class="am-modal-footer">
+                        <span class="am-modal-btn">确定</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        $("#doc-qrcode").qrcode({
+            text: window.location.href,
+            width: 250,
+            height: 250
+        });
+    </script>
+
+</body>
+
+</html>
